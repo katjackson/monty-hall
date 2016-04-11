@@ -8,9 +8,17 @@ def assign_car_door():
 
 
 def staying_strategy():
-    game = assign_car_door()
+    car = assign_car_door()
     first_choice = random.choice([1, 2, 3, 4, 5])
-    return first_choice == game
+    return first_choice == car
+
+
+def open_a_door(doors, car):
+    doors.remove(car)
+    open_door = random.choice(doors)
+    doors.remove(open_door)
+    doors.append(car)
+    return doors
 
 
 def switching_strategy():
@@ -21,10 +29,7 @@ def switching_strategy():
     doors.remove(first_choice)
 
     if first_choice != car:
-        doors.remove(car)
-        open_door = random.choice(doors)
-        doors.remove(open_door)
-        doors.append(car)
+        doors = open_a_door(doors, car)
 
     second_choice = random.choice(doors)
     return second_choice == car

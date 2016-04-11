@@ -1,42 +1,24 @@
 import random
 
 
-def assign_doors():
-    doors = [1, 2, 3]
-    game = {'a_goat': 0, 'b_goat': 0, 'car': 0}
-
-    game['a_goat'] = random.choice(doors)
-    doors.remove(game['a_goat'])
-
-    game['b_goat'] = random.choice(doors)
-    doors.remove(game['b_goat'])
-
-    game['car'] = doors[0]
-
-    return game
+def assign_car_door():
+    car = random.choice([1, 2, 3])
+    return car
 
 
 def staying_strategy():
-    game = assign_doors()
+    car = assign_car_door()
     first_choice = random.choice([1, 2, 3])
-    return first_choice == game['car']
+    return first_choice == car
 
 
 def switching_strategy():
-    game = assign_doors()
+    car = assign_car_door()
     doors = [1, 2, 3]
 
     first_choice = random.choice(doors)
-    doors.remove(first_choice)
 
-    if first_choice == game['a_goat']:
-        doors.remove(game['b_goat'])
-
-    elif first_choice == game['b_goat']:
-        doors.remove(game['a_goat'])
-
-    second_choice = doors[0]
-    return second_choice == game['car']
+    return first_choice != car
 
 
 staying_wins = 0
@@ -55,7 +37,7 @@ print('Probability of switching win: {}%'.format(switching_wins / 10))
 
 
 # def game_loop():
-#     game = assign_doors()
+#     car = assign_car_door()
 #     first_choice = random.choice([1, 2, 3])
 #     if first_choice == game['car']:
 #         return 'staying win'
@@ -71,6 +53,3 @@ print('Probability of switching win: {}%'.format(switching_wins / 10))
 #         staying_wins += 1
 #     elif win == 'switching win':
 #         switching_wins += 1
-#
-# probability_of_switching_wins = switching_wins / 1000
-# print(probability_of_switching_wins)
